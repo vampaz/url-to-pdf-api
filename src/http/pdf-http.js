@@ -7,11 +7,12 @@ const getRender = ex.createRoute((req, res) => {
   const opts = getOptsFromQuery(req.query);
   return pdfCore.render(opts)
     .then((data) => {
+
       if (opts.attachmentName) {
         res.attachment(opts.attachmentName);
       }
       res.set('content-type', 'application/pdf');
-        logger.info(JSON.stringify(data))
+   
       res.send(data);
 
     });
@@ -21,7 +22,7 @@ const postRender = ex.createRoute((req, res) => {
 
 
     logger.info(JSON.stringify(req.body))
-    logger.warn('FUUUU');
+
 
 
   const isBodyJson = req.headers['content-type'] === 'application/json';
@@ -44,10 +45,12 @@ const postRender = ex.createRoute((req, res) => {
 
   return pdfCore.render(opts)
     .then((data) => {
+         logger.info(JSON.stringify(data))
       if (opts.attachmentName) {
         res.attachment(opts.attachmentName);
       }
       res.set('content-type', 'application/pdf');
+
       res.send(data);
     });
 });
