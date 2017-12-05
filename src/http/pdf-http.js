@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const ex = require('../util/express');
 const pdfCore = require('../core/pdf-core');
+const logger = require('../util/logger')(__filename);
 
 const getRender = ex.createRoute((req, res) => {
   const opts = getOptsFromQuery(req.query);
@@ -15,6 +16,12 @@ const getRender = ex.createRoute((req, res) => {
 });
 
 const postRender = ex.createRoute((req, res) => {
+
+
+    logger.info(JSON.stringify(req.body))
+    logger.warn('FUUUU');
+
+
   const isBodyJson = req.headers['content-type'] === 'application/json';
   if (isBodyJson) {
     const hasContent = _.isString(_.get(req.body, 'url')) || _.isString(_.get(req.body, 'html'));
