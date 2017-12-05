@@ -45,7 +45,7 @@ const postRender = ex.createRoute((req, res) => {
 
   return pdfCore.render(opts)
     .then((data) => {
-         logger.info(JSON.stringify(data))
+      
       if (opts.attachmentName) {
         res.attachment(opts.attachmentName);
       }
