@@ -34,7 +34,14 @@ function createApp() {
   };
   logger.info('Using CORS options:', corsOpts);
   app.use(cors(corsOpts));
-  app.options('*', cors())
+  app.options('*', cors(corsOpts));
+  
+  app.options("/*", function(req, res, next){
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  res.send(200);
+});
 
   // Limit to 10mb if HTML has e.g. inline images
   app.use(bodyParser.text({ limit: '4mb', type: 'text/html' }));
