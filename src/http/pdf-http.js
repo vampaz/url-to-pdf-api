@@ -12,6 +12,7 @@ const getRender = ex.createRoute((req, res) => {
       }
       res.set('content-type', 'application/pdf');
       res.send(data);
+      logger.info(JSON.stringify(data))
     });
 });
 
