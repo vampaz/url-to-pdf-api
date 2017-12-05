@@ -3,7 +3,6 @@ const enableDestroy = require('server-destroy');
 const BPromise = require('bluebird');
 const logger = require('./util/logger')(__filename);
 const config = require('./config');
-const cors = require('cors');
 
 BPromise.config({
   warnings: config.NODE_ENV !== 'production',
@@ -11,7 +10,6 @@ BPromise.config({
 });
 
 const app = createApp();
-app.use(cors());
 
 const server = app.listen(config.PORT, () => {
   logger.info(
@@ -20,6 +18,7 @@ const server = app.listen(config.PORT, () => {
     app.get('env')
   );
 });
+
 enableDestroy(server);
 
 function closeServer(signal) {

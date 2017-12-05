@@ -29,7 +29,7 @@ function createApp() {
   }
 
   const corsOpts = {
-    origin: config.CORS_ORIGIN,
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD', 'PATCH'],
   };
   logger.info('Using CORS options:', corsOpts);
