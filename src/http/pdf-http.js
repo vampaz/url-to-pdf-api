@@ -49,8 +49,8 @@ const postRender = ex.createRoute((req, res) => {
       res.set('content-type', 'application/pdf');
 
   
-      var writer = fs.createWriteStream('hello.pdf');
-      writer.write(data)
+      // var writer = fs.createWriteStream('hello.pdf');
+      // writer.write(data)
 
 
       res.send(data);
