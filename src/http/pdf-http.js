@@ -2,6 +2,7 @@ const _ = require('lodash');
 const ex = require('../util/express');
 const pdfCore = require('../core/pdf-core');
 const logger = require('../util/logger')(__filename);
+const fs = require('fs')
 
 const getRender = ex.createRoute((req, res) => {
   const opts = getOptsFromQuery(req.query);
@@ -21,11 +22,7 @@ const getRender = ex.createRoute((req, res) => {
 const postRender = ex.createRoute((req, res) => {
 
 
-    logger.info(JSON.stringify(req.body))
-
-
-
-  const isBodyJson = req.headers['content-type'] === 'application/json';
+  const isBodyJson = req.headers['content-type'].indexOf('application/json') > -1;
   if (isBodyJson) {
     const hasContent = _.isString(_.get(req.body, 'url')) || _.isString(_.get(req.body, 'html'));
     if (!hasContent) {
@@ -37,6 +34,7 @@ const postRender = ex.createRoute((req, res) => {
 
   let opts;
   if (isBodyJson) {
+    console.log('req.bodyOptions',req.body)
     opts = _.cloneDeep(req.body);
   } else {
     opts = getOptsFromQuery(req.query);
@@ -45,11 +43,15 @@ const postRender = ex.createRoute((req, res) => {
 
   return pdfCore.render(opts)
     .then((data) => {
-      
       if (opts.attachmentName) {
         res.attachment(opts.attachmentName);
       }
       res.set('content-type', 'application/pdf');
+
+  
+      var writer = fs.createWriteStream('hello.pdf');
+      writer.write(data)
+
 
       res.send(data);
     });

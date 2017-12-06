@@ -33,7 +33,7 @@ function createRouter() {
       allowUnknownQuery: false,
     },
   };
-  router.get('/api/render', validate(getRenderSchema), pdf.getRender);
+  router.get('/pdf/render', validate(getRenderSchema), pdf.getRender);
 
   const postRenderSchema = {
     body: renderBodySchema,
@@ -47,7 +47,7 @@ function createRouter() {
       contextRequest: true,
     },
   };
-  router.post('/api/render', validate(postRenderSchema), pdf.postRender);
+  router.post('/pdf/render', validate(postRenderSchema), pdf.postRender);
 
   return router;
 }
